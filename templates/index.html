@@ -28,7 +28,7 @@
               <span>Password</span>
               <input id="login-password" type="password" value="demo-password" autocomplete="current-password" />
             </label>
-            <button type="submit">Sign in</button>
+            <button id="login-submit" type="submit">Sign in</button>
           </form>
         </div>
       </header>
@@ -50,6 +50,11 @@
           <span class="metric-label">Congestion threshold</span>
           <strong id="metric-threshold">—</strong>
         </article>
+      </section>
+
+      <section class="session-banner" id="session-banner" data-state="signed-out" role="status" aria-live="polite">
+        <strong>Sign in required</strong>
+        <span>Authenticate as the demo operator to unlock the signed sensor scenarios.</span>
       </section>
 
       <section class="panel">

@@ -169,6 +169,42 @@ h2 {
   letter-spacing: -0.06em;
 }
 
+.session-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 18px 0;
+  padding: 15px 18px;
+  border: 1px solid #d8cabe;
+  border-radius: 12px;
+  background: #f8f6f2;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.session-banner strong {
+  color: var(--ink);
+}
+
+.session-banner[data-state="ready"] {
+  border-color: rgba(45, 107, 83, 0.35);
+  background: #eef7f1;
+}
+
+.session-banner[data-state="ready"] strong {
+  color: var(--success);
+}
+
+.session-banner[data-state="error"] {
+  border-color: rgba(156, 78, 56, 0.35);
+  background: #fbefeb;
+}
+
+.session-banner[data-state="error"] strong {
+  color: var(--danger);
+}
+
 .panel {
   padding: 28px;
 }
@@ -208,6 +244,16 @@ h2 {
   text-align: left;
   cursor: pointer;
   transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.scenario-button.is-ready {
+  border-color: #c7a27f;
+  background: #fffdf9;
+}
+
+.scenario-button.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(184, 146, 106, 0.2);
 }
 
 .scenario-button:hover:not(:disabled),
@@ -362,7 +408,8 @@ h2 {
 
   .hero,
   .panel-heading,
-  .footer {
+  .footer,
+  .session-banner {
     align-items: flex-start;
     flex-direction: column;
   }
