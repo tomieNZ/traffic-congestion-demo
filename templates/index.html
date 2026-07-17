@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Secure Real-Time Traffic Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">MSE806 · Intelligent Transportation Systems</p>
+          <h1>Secure Real-Time Traffic</h1>
+          <p class="hero-copy">
+            Congestion monitoring and alerting with signed sensor data,
+            operator authentication, and an RBF-SVM classifier.
+          </p>
+        </div>
+        <div class="hero-tools">
+          <div class="status-pill" id="service-status">Connecting…</div>
+          <form class="login-form" id="login-form">
+            <label>
+              <span>Operator</span>
+              <input id="login-username" value="operator" autocomplete="username" />
+            </label>
+            <label>
+              <span>Password</span>
+              <input id="login-password" type="password" value="demo-password" autocomplete="current-password" />
+            </label>
+            <button type="submit">Sign in</button>
+          </form>
+        </div>
+      </header>
+
+      <section class="metrics" aria-label="Model summary">
+        <article class="metric-card">
+          <span class="metric-label">Test accuracy</span>
+          <strong id="metric-accuracy">—</strong>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">5-fold CV accuracy</span>
+          <strong id="metric-cv">—</strong>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Training records</span>
+          <strong id="metric-records">—</strong>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Congestion threshold</span>
+          <strong id="metric-threshold">—</strong>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Sensor simulator</p>
+            <h2>Send a scenario through the full trust boundary</h2>
+          </div>
+          <p class="panel-note">All requests use JWT authentication. HMAC is verified before classification.</p>
+        </div>
+        <div class="scenario-grid" id="scenario-grid">
+          <button class="scenario-button" data-scenario="safe" disabled>
+            <span class="button-kicker">01 · Valid</span>
+            <strong>Safe reading</strong>
+            <span>FG · dρ 55</span>
+          </button>
+          <button class="scenario-button" data-scenario="congested" disabled>
+            <span class="button-kicker">02 · Valid</span>
+            <strong>Congested reading</strong>
+            <span>GB · dρ 75</span>
+          </button>
+          <button class="scenario-button warning" data-scenario="tampered" disabled>
+            <span class="button-kicker">03 · Invalid signature</span>
+            <strong>Tampered payload</strong>
+            <span>Changed after signing</span>
+          </button>
+          <button class="scenario-button warning" data-scenario="anomaly" disabled>
+            <span class="button-kicker">04 · Invalid data</span>
+            <strong>Signed anomaly</strong>
+            <span>dρ outside allowed range</span>
+          </button>
+        </div>
+        <div class="result" id="result" role="status">
+          <span class="result-placeholder">Choose a scenario to see the API response.</span>
+        </div>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel compact-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Decision output</p>
+              <h2>Latest evaluation</h2>
+            </div>
+          </div>
+          <dl class="decision-list" id="latest-decision">
+            <div><dt>Status</dt><dd>—</dd></div>
+            <div><dt>Road</dt><dd>—</dd></div>
+            <div><dt>Confidence</dt><dd>—</dd></div>
+            <div><dt>Recommended action</dt><dd>—</dd></div>
+          </dl>
+        </article>
+
+        <article class="panel compact-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Accountability</p>
+              <h2>Audit log</h2>
+            </div>
+            <button class="text-button" id="refresh-history">Refresh</button>
+          </div>
+          <div class="audit-list" id="audit-list">
+            <p class="muted">No events yet.</p>
+          </div>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span>Local demonstration only · Synthetic data · Not for production traffic control</span>
+        <span id="auth-status">Authenticating operator…</span>
+      </footer>
+    </main>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
